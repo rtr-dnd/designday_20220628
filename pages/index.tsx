@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     const value = val as number
     // max blur: 16px
     setFirstBlur(maxBlurVal - (value * maxBlurVal))
-    setSecondBlur(Math.abs(maxBlurVal - (value * maxBlurVal) / 2))
+    setSecondBlur(Math.abs(maxBlurVal * value - maxBlurVal / 2))
     setThirdBlur(value * maxBlurVal)
   }
 
@@ -49,6 +49,7 @@ const Home: NextPage = () => {
               max={1}
               defaultValue={0}
               step={0.01}
+              vertical
               />
           </div>
         </div>

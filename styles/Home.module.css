@@ -45,11 +45,11 @@
 
 .sliderwrap {
   position: fixed;
-  top: 24px;
-  width: 50vw;
-  left: 50vh;
-  transform: translateX(-50%);
-  height: 24px;
+  right: 24px;
+  height: 50vh;
+  top: 50vh;
+  transform: translateY(-50%);
+  width: 24px;
   padding: 12px;
   z-index: 50;
 }
