@@ -26,6 +26,7 @@
   z-index: 10;
   color: transparent;
   text-shadow: 0 0 0px rgba(0, 0, 0, 0.8);
+  padding: 0 24px;
 }
 
 .third {
@@ -35,6 +36,7 @@
   z-index: 0;
   color: transparent;
   text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  padding: 0 48px;
 }
 
 .slider {
