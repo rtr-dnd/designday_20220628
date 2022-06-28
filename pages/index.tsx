@@ -2,8 +2,25 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
+import { useEffect, useState } from 'react'
+import { UIEvent } from 'react'
 
 const Home: NextPage = () => {
+  const [firstScroll, setFirstScroll] = useState(0)
+  const [secondScroll, setSecondScroll] = useState(0)
+
+  const onscroll: EventListener = (e) => {
+    console.log(window.scrollY)
+    setFirstScroll(400 - window.scrollY * 2.5)
+    setSecondScroll(200 - window.scrollY * 1.25)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', onscroll)
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,58 +30,39 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className={styles.slider}>
+          <Slider
+            onChange={(nextValues) => {
+              console.log('Change:', nextValues);
+            //   setValue(nextValues as any);
+            }}
+            // value={value}
+  
+            min={0}
+            max={1}
+            defaultValue={0.81}
+            step={0.01}
+            />
+        </div>
+        <div className={styles.first} style={{top: firstScroll.toString() + 'px'}}>
+          FIRST LAYER <br />
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem odio, elementum at lobortis a, dapibus rhoncus nisl. In viverra sapien eu ex vestibulum, nec rhoncus neque euismod. Fusce ultrices nisi eu odio sagittis tristique. Aliquam sem lorem, molestie eget nunc eget, egestas dictum leo. Cras posuere metus ut arcu pulvinar, in maximus nisl volutpat. Vivamus egestas porta vulputate. Vestibulum suscipit massa in ante vulputate, ac malesuada purus dictum. In a est nec erat ornare rutrum id nec elit. Sed tincidunt laoreet congue. Vestibulum ullamcorper elit at augue imperdiet tristique. Duis hendrerit lobortis lorem eu malesuada. Donec feugiat interdum justo, eu porttitor nunc volutpat sit amet. Nam egestas semper urna maximus consectetur. In a ex quis ante lobortis mollis non id ex.
+          Nunc id varius nisi. Nulla facilisi. Nullam eu rhoncus lorem, eget venenatis leo. Phasellus accumsan leo in eros iaculis dignissim. Morbi aliquet purus suscipit tempor fringilla. Praesent egestas tristique eros sit amet consectetur. Ut vitae leo mi. Cras at eros blandit, pharetra nibh non, dignissim massa. Pellentesque tristique ligula erat, eget rutrum est pellentesque in.
+          Suspendisse nec ex malesuada, ultricies urna id, hendrerit lacus. Proin a pretium turpis. Suspendisse faucibus porttitor sem, ac sodales magna sodales ut. Suspendisse a dolor tristique, venenatis mi at, finibus dui. Pellentesque vitae tortor sit amet nisl ultrices suscipit. Proin volutpat mauris libero. Aliquam mi leo, dapibus vitae eros quis, luctus cursus metus. Nullam sit amet ex id turpis lacinia ultrices. Pellentesque purus risus, mollis ut sodales non, accumsan semper risus. Donec eget vestibulum nunc. Ut lorem ex, ultrices vel diam ac, mollis porta diam. Mauris purus enim, interdum vel posuere in, efficitur ac tortor. Sed rutrum, sem vel malesuada malesuada, justo purus congue justo, in tempor nisi eros vel massa. Sed id massa arcu. Pellentesque placerat eu nisl lacinia molestie.
+        </div>
+        <div className={styles.second} style={{top: secondScroll.toString() + 'px'}}>
+          SECOND LAYER <br />
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem odio, elementum at lobortis a, dapibus rhoncus nisl. In viverra sapien eu ex vestibulum, nec rhoncus neque euismod. Fusce ultrices nisi eu odio sagittis tristique. Aliquam sem lorem, molestie eget nunc eget, egestas dictum leo. Cras posuere metus ut arcu pulvinar, in maximus nisl volutpat. Vivamus egestas porta vulputate. Vestibulum suscipit massa in ante vulputate, ac malesuada purus dictum. In a est nec erat ornare rutrum id nec elit. Sed tincidunt laoreet congue. Vestibulum ullamcorper elit at augue imperdiet tristique. Duis hendrerit lobortis lorem eu malesuada. Donec feugiat interdum justo, eu porttitor nunc volutpat sit amet. Nam egestas semper urna maximus consectetur. In a ex quis ante lobortis mollis non id ex.
+          Nunc id varius nisi. Nulla facilisi. Nullam eu rhoncus lorem, eget venenatis leo. Phasellus accumsan leo in eros iaculis dignissim. Morbi aliquet purus suscipit tempor fringilla. Praesent egestas tristique eros sit amet consectetur. Ut vitae leo mi. Cras at eros blandit, pharetra nibh non, dignissim massa. Pellentesque tristique ligula erat, eget rutrum est pellentesque in.
+          Suspendisse nec ex malesuada, ultricies urna id, hendrerit lacus. Proin a pretium turpis. Suspendisse faucibus porttitor sem, ac sodales magna sodales ut. Suspendisse a dolor tristique, venenatis mi at, finibus dui. Pellentesque vitae tortor sit amet nisl ultrices suscipit. Proin volutpat mauris libero. Aliquam mi leo, dapibus vitae eros quis, luctus cursus metus. Nullam sit amet ex id turpis lacinia ultrices. Pellentesque purus risus, mollis ut sodales non, accumsan semper risus. Donec eget vestibulum nunc. Ut lorem ex, ultrices vel diam ac, mollis porta diam. Mauris purus enim, interdum vel posuere in, efficitur ac tortor. Sed rutrum, sem vel malesuada malesuada, justo purus congue justo, in tempor nisi eros vel massa. Sed id massa arcu. Pellentesque placerat eu nisl lacinia molestie.
+        </div>
+        <div className={styles.third}>
+          THIRD LAYER <br />
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem odio, elementum at lobortis a, dapibus rhoncus nisl. In viverra sapien eu ex vestibulum, nec rhoncus neque euismod. Fusce ultrices nisi eu odio sagittis tristique. Aliquam sem lorem, molestie eget nunc eget, egestas dictum leo. Cras posuere metus ut arcu pulvinar, in maximus nisl volutpat. Vivamus egestas porta vulputate. Vestibulum suscipit massa in ante vulputate, ac malesuada purus dictum. In a est nec erat ornare rutrum id nec elit. Sed tincidunt laoreet congue. Vestibulum ullamcorper elit at augue imperdiet tristique. Duis hendrerit lobortis lorem eu malesuada. Donec feugiat interdum justo, eu porttitor nunc volutpat sit amet. Nam egestas semper urna maximus consectetur. In a ex quis ante lobortis mollis non id ex.
+          Nunc id varius nisi. Nulla facilisi. Nullam eu rhoncus lorem, eget venenatis leo. Phasellus accumsan leo in eros iaculis dignissim. Morbi aliquet purus suscipit tempor fringilla. Praesent egestas tristique eros sit amet consectetur. Ut vitae leo mi. Cras at eros blandit, pharetra nibh non, dignissim massa. Pellentesque tristique ligula erat, eget rutrum est pellentesque in.
+          Suspendisse nec ex malesuada, ultricies urna id, hendrerit lacus. Proin a pretium turpis. Suspendisse faucibus porttitor sem, ac sodales magna sodales ut. Suspendisse a dolor tristique, venenatis mi at, finibus dui. Pellentesque vitae tortor sit amet nisl ultrices suscipit. Proin volutpat mauris libero. Aliquam mi leo, dapibus vitae eros quis, luctus cursus metus. Nullam sit amet ex id turpis lacinia ultrices. Pellentesque purus risus, mollis ut sodales non, accumsan semper risus. Donec eget vestibulum nunc. Ut lorem ex, ultrices vel diam ac, mollis porta diam. Mauris purus enim, interdum vel posuere in, efficitur ac tortor. Sed rutrum, sem vel malesuada malesuada, justo purus congue justo, in tempor nisi eros vel massa. Sed id massa arcu. Pellentesque placerat eu nisl lacinia molestie.
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
