@@ -1,5 +1,5 @@
 .container {
-  padding: 0 2rem;
+  padding: 0;
 }
 
 .main {
@@ -15,6 +15,8 @@
   top: 0;
   z-index: 20;
   padding-top: 400px;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
 .second {
@@ -22,6 +24,8 @@
   position: relative;
   padding-top: 200px;
   z-index: 10;
+  color: transparent;
+  text-shadow: 0 0 0px rgba(0, 0, 0, 0.8);
 }
 
 .third {
@@ -29,13 +33,23 @@
   font-size: 3rem;
   top: 120px;
   z-index: 0;
+  color: transparent;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
 .slider {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.sliderwrap {
   position: fixed;
   top: 24px;
-  width: 100vw;
+  width: 50vw;
+  left: 50vh;
+  transform: translateX(-50%);
   height: 24px;
+  padding: 12px;
   z-index: 50;
-  background-color: #fff;
 }

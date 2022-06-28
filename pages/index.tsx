@@ -12,7 +12,6 @@ const Home: NextPage = () => {
   const [secondScroll, setSecondScroll] = useState(0)
 
   const onscroll: EventListener = (e) => {
-    console.log(window.scrollY)
     setFirstScroll(400 - window.scrollY * 2.5)
     setSecondScroll(200 - window.scrollY * 1.25)
   }
@@ -20,6 +19,18 @@ const Home: NextPage = () => {
   useEffect(() => {
     window.addEventListener('scroll', onscroll)
   }, [])
+
+  const maxBlurVal = 24
+  const [firstBlur, setFirstBlur] = useState(maxBlurVal)
+  const [secondBlur, setSecondBlur] = useState(maxBlurVal / 2)
+  const [thirdBlur, setThirdBlur] = useState(0)
+  const onDragged = (val: number | number[]) => {
+    const value = val as number
+    // max blur: 16px
+    setFirstBlur(maxBlurVal - (value * maxBlurVal))
+    setSecondBlur(Math.abs(maxBlurVal - (value * maxBlurVal) / 2))
+    setThirdBlur(value * maxBlurVal)
+  }
 
   return (
     <div className={styles.container}>
@@ -30,33 +41,38 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.slider}>
-          <Slider
-            onChange={(nextValues) => {
-              console.log('Change:', nextValues);
-            //   setValue(nextValues as any);
-            }}
-            // value={value}
-  
-            min={0}
-            max={1}
-            defaultValue={0.81}
-            step={0.01}
-            />
+        <div className={styles.sliderwrap}>
+          <div className={styles.slider}>
+            <Slider
+              onChange={onDragged}
+              min={0}
+              max={1}
+              defaultValue={0}
+              step={0.01}
+              />
+          </div>
         </div>
-        <div className={styles.first} style={{top: firstScroll.toString() + 'px'}}>
+        <div className={styles.first} style={{
+          top: firstScroll.toString() + 'px',
+          textShadow: '0 0 ' + firstBlur.toString() + 'px rgba(0, 0, 0, 0.8)'
+        }}>
           FIRST LAYER <br />
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem odio, elementum at lobortis a, dapibus rhoncus nisl. In viverra sapien eu ex vestibulum, nec rhoncus neque euismod. Fusce ultrices nisi eu odio sagittis tristique. Aliquam sem lorem, molestie eget nunc eget, egestas dictum leo. Cras posuere metus ut arcu pulvinar, in maximus nisl volutpat. Vivamus egestas porta vulputate. Vestibulum suscipit massa in ante vulputate, ac malesuada purus dictum. In a est nec erat ornare rutrum id nec elit. Sed tincidunt laoreet congue. Vestibulum ullamcorper elit at augue imperdiet tristique. Duis hendrerit lobortis lorem eu malesuada. Donec feugiat interdum justo, eu porttitor nunc volutpat sit amet. Nam egestas semper urna maximus consectetur. In a ex quis ante lobortis mollis non id ex.
           Nunc id varius nisi. Nulla facilisi. Nullam eu rhoncus lorem, eget venenatis leo. Phasellus accumsan leo in eros iaculis dignissim. Morbi aliquet purus suscipit tempor fringilla. Praesent egestas tristique eros sit amet consectetur. Ut vitae leo mi. Cras at eros blandit, pharetra nibh non, dignissim massa. Pellentesque tristique ligula erat, eget rutrum est pellentesque in.
           Suspendisse nec ex malesuada, ultricies urna id, hendrerit lacus. Proin a pretium turpis. Suspendisse faucibus porttitor sem, ac sodales magna sodales ut. Suspendisse a dolor tristique, venenatis mi at, finibus dui. Pellentesque vitae tortor sit amet nisl ultrices suscipit. Proin volutpat mauris libero. Aliquam mi leo, dapibus vitae eros quis, luctus cursus metus. Nullam sit amet ex id turpis lacinia ultrices. Pellentesque purus risus, mollis ut sodales non, accumsan semper risus. Donec eget vestibulum nunc. Ut lorem ex, ultrices vel diam ac, mollis porta diam. Mauris purus enim, interdum vel posuere in, efficitur ac tortor. Sed rutrum, sem vel malesuada malesuada, justo purus congue justo, in tempor nisi eros vel massa. Sed id massa arcu. Pellentesque placerat eu nisl lacinia molestie.
         </div>
-        <div className={styles.second} style={{top: secondScroll.toString() + 'px'}}>
+        <div className={styles.second} style={{
+          top: secondScroll.toString() + 'px',
+          textShadow: '0 0 ' + secondBlur.toString() + 'px rgba(0, 0, 0, 0.8)'
+        }}>
           SECOND LAYER <br />
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem odio, elementum at lobortis a, dapibus rhoncus nisl. In viverra sapien eu ex vestibulum, nec rhoncus neque euismod. Fusce ultrices nisi eu odio sagittis tristique. Aliquam sem lorem, molestie eget nunc eget, egestas dictum leo. Cras posuere metus ut arcu pulvinar, in maximus nisl volutpat. Vivamus egestas porta vulputate. Vestibulum suscipit massa in ante vulputate, ac malesuada purus dictum. In a est nec erat ornare rutrum id nec elit. Sed tincidunt laoreet congue. Vestibulum ullamcorper elit at augue imperdiet tristique. Duis hendrerit lobortis lorem eu malesuada. Donec feugiat interdum justo, eu porttitor nunc volutpat sit amet. Nam egestas semper urna maximus consectetur. In a ex quis ante lobortis mollis non id ex.
           Nunc id varius nisi. Nulla facilisi. Nullam eu rhoncus lorem, eget venenatis leo. Phasellus accumsan leo in eros iaculis dignissim. Morbi aliquet purus suscipit tempor fringilla. Praesent egestas tristique eros sit amet consectetur. Ut vitae leo mi. Cras at eros blandit, pharetra nibh non, dignissim massa. Pellentesque tristique ligula erat, eget rutrum est pellentesque in.
           Suspendisse nec ex malesuada, ultricies urna id, hendrerit lacus. Proin a pretium turpis. Suspendisse faucibus porttitor sem, ac sodales magna sodales ut. Suspendisse a dolor tristique, venenatis mi at, finibus dui. Pellentesque vitae tortor sit amet nisl ultrices suscipit. Proin volutpat mauris libero. Aliquam mi leo, dapibus vitae eros quis, luctus cursus metus. Nullam sit amet ex id turpis lacinia ultrices. Pellentesque purus risus, mollis ut sodales non, accumsan semper risus. Donec eget vestibulum nunc. Ut lorem ex, ultrices vel diam ac, mollis porta diam. Mauris purus enim, interdum vel posuere in, efficitur ac tortor. Sed rutrum, sem vel malesuada malesuada, justo purus congue justo, in tempor nisi eros vel massa. Sed id massa arcu. Pellentesque placerat eu nisl lacinia molestie.
         </div>
-        <div className={styles.third}>
+        <div className={styles.third} style={{
+          textShadow: '0 0 ' + thirdBlur.toString() + 'px rgba(0, 0, 0, 0.8)'
+        }}>
           THIRD LAYER <br />
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem odio, elementum at lobortis a, dapibus rhoncus nisl. In viverra sapien eu ex vestibulum, nec rhoncus neque euismod. Fusce ultrices nisi eu odio sagittis tristique. Aliquam sem lorem, molestie eget nunc eget, egestas dictum leo. Cras posuere metus ut arcu pulvinar, in maximus nisl volutpat. Vivamus egestas porta vulputate. Vestibulum suscipit massa in ante vulputate, ac malesuada purus dictum. In a est nec erat ornare rutrum id nec elit. Sed tincidunt laoreet congue. Vestibulum ullamcorper elit at augue imperdiet tristique. Duis hendrerit lobortis lorem eu malesuada. Donec feugiat interdum justo, eu porttitor nunc volutpat sit amet. Nam egestas semper urna maximus consectetur. In a ex quis ante lobortis mollis non id ex.
           Nunc id varius nisi. Nulla facilisi. Nullam eu rhoncus lorem, eget venenatis leo. Phasellus accumsan leo in eros iaculis dignissim. Morbi aliquet purus suscipit tempor fringilla. Praesent egestas tristique eros sit amet consectetur. Ut vitae leo mi. Cras at eros blandit, pharetra nibh non, dignissim massa. Pellentesque tristique ligula erat, eget rutrum est pellentesque in.
